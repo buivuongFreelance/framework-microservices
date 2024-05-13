@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: services-auth-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: services-auth
+  template:
+    metadata:
+      labels:
+        app: services-auth
+    spec:
+      containers:
+        - name: services-auth
+          image: buivuong/services-auth
+          env:
+            - name: MONGO_URI
+              value: 'mongodb://192.168.1.5:27017/services-auth'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: services-auth-srv
+spec:
+  selector:
+    app: services-auth
+  ports:
+    - name: services-auth
+      protocol: TCP
+      port: 5000
+      targetPort: 5000

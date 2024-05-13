@@ -1,0 +1,25 @@
+@baseUrl = https://services.dev/api/tickets
+
+### NEW TICKET
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+    "title": "concert",
+    "price": 10
+}
+
+### GET ALL TICKETs
+GET {{baseUrl}}
+
+### GET TICKET
+GET {{baseUrl}}/66307cfaf5b335b50d876e2b
+
+### UPDATE TICKET
+PUT {{baseUrl}}/66307cfaf5b335b50d876e2b
+Content-Type: application/json
+
+{
+    "title": "concert1",
+    "price": 20
+}

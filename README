@@ -1,0 +1,7 @@
+docker build -t buivuong/services-auth .
+docker build -t buivuong/services-tickets .
+
+docker system prune -a
+
+kubectl create secret generic jwt-secret --from-literal=JWT_KEY=asbss
+kubectl get secrets

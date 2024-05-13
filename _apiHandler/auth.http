@@ -1,0 +1,27 @@
+@baseUrl = https://services.dev/api/users
+
+### SIGNUP
+POST {{baseUrl}}/signup
+Content-Type: application/json
+
+{
+    "email": "test2@gmail.com",
+    "password": "dingtoi@2023"
+}
+
+### SIGNIN
+POST {{baseUrl}}/signin
+Content-Type: application/json
+
+{
+    "email": "test2@gmail.com",
+    "password": "dingtoi@2023"
+}
+
+### GET CURRENT USER
+GET {{baseUrl}}/currentuser
+
+
+### SIGNOUT
+POST {{baseUrl}}/signout
+Content-Type: application/json

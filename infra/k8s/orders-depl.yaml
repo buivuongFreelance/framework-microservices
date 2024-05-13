@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: services-orders-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: services-orders
+  template:
+    metadata:
+      labels:
+        app: services-orders
+    spec:
+      containers:
+        - name: services-orders
+          image: buivuong/services-orders
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: ticketing
+            - name: MONGO_URI
+              value: 'mongodb://192.168.1.5:27017/services-orders'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: services-orders-srv
+spec:
+  selector:
+    app: services-orders
+  ports:
+    - name: services-orders
+      protocol: TCP
+      port: 5002
+      targetPort: 5002
